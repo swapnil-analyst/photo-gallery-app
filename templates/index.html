@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Photo Gallery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<h1>📸 Photo Gallery</h1>
+
+<a href="/upload" class="upload-btn">Upload Images</a>
+
+<div class="gallery">
+    {% for image in images %}
+        <div class="card">
+
+            <!-- 3-dot menu -->
+            <div class="menu">
+                <span onclick="toggleMenu(this)">⋮</span>
+
+                <div class="menu-content">
+                    <a href="{{ url_for('static', filename='images/' + image) }}" target="_blank">View</a>
+                    <a href="{{ url_for('static', filename='images/' + image) }}" download>Download</a>
+
+                    <form action="{{ url_for('delete', filename=image) }}" method="post">
+                        <button type="submit" onclick="return confirm('Delete this photo?');">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Image -->
+            <img src="{{ url_for('static', filename='images/' + image) }}" loading="lazy">
+
+        </div>
+    {% endfor %}
+</div>
+
+<script>
+function toggleMenu(element) {
+    let menu = element.nextElementSibling;
+
+    document.querySelectorAll('.menu-content').forEach(m => {
+        if (m !== menu) m.style.display = 'none';
+    });
+
+    menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+}
+
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.menu')) {
+        document.querySelectorAll('.menu-content').forEach(m => {
+            m.style.display = 'none';
+        });
+    }
+});
+</script>
+
+</body>
+</html>

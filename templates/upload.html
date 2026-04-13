@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Images</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0f0f, #1c1c2e);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 420px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        /* Drag area */
+        .drop-area {
+            border: 2px dashed #555;
+            border-radius: 12px;
+            padding: 30px 20px;
+            margin-bottom: 15px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .drop-area:hover {
+            border-color: #ff4b5c;
+            background: rgba(255, 75, 92, 0.05);
+        }
+
+        .drop-area p {
+            margin: 0;
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .select-btn {
+            margin-top: 10px;
+            display: inline-block;
+            padding: 10px 18px;
+            background: #ff4b5c;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button {
+            margin-top: 15px;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #ff4b5c;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ff2d42;
+            transform: scale(1.03);
+        }
+
+        .back {
+            display: block;
+            margin-top: 15px;
+            color: #aaa;
+            text-decoration: none;
+        }
+
+        .back:hover {
+            color: white;
+        }
+
+        /* Preview text */
+        #file-count {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #bbb;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>📤 Upload Images</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        <!-- Drag Area -->
+        <div class="drop-area" onclick="document.getElementById('fileInput').click()">
+            <p>Drag & Drop images here</p>
+            <p>or</p>
+            <div class="select-btn">Select Files</div>
+        </div>
+
+        <!-- Hidden Input -->
+        <input type="file" id="fileInput" name="images" multiple accept="image/*" onchange="updateCount(this)">
+
+        <div id="file-count">No files selected</div>
+
+        <button type="submit">Upload Now 🚀</button>
+
+    </form>
+
+    <a href="/" class="back">⬅ Back to Gallery</a>
+
+</div>
+
+<script>
+function updateCount(input) {
+    const count = input.files.length;
+    document.getElementById('file-count').innerText =
+        count > 0 ? count + " file(s) selected" : "No files selected";
+}
+</script>
+
+</body>
+</html>
